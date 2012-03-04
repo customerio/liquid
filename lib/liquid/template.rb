@@ -191,6 +191,10 @@ module Liquid
       when Hash
         options = args.pop
 
+        if options[:strict]
+          context.strict!
+        end
+
         registers.merge!(options[:registers]) if options[:registers].is_a?(Hash)
 
         apply_options_to_context(context, options)

@@ -68,6 +68,11 @@ class TemplateUnitTest < Minitest::Test
     assert_nil Template.tags['fake']
   end
 
+  def test_raises_exception_when_unknown_if_strict
+    template = Template.parse(%|{{ test }}|)
+    assert_raises(UndefinedVariable) { template.render({}, :strict => true) }
+  end
+
   def test_tags_can_be_looped_over
     Template.register_tag('fake', FakeTag)
     result = Template.tags.map { |name, klass| [name, klass] }

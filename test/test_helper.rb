@@ -54,6 +54,14 @@ module Minitest
       assert_match match, exception.message
     end
 
+    def assert_strict_template_result(expected, template, assigns = {}, message = nil)
+      assert_equal expected, Template.parse(template).render(assigns, :strict => true)
+    end
+
+    def assert_template_result_matches(expected, template, assigns = {}, message = nil)
+      return assert_template_result(expected, template, assigns, message) unless expected.is_a? Regexp
+    end
+
     def with_global_filter(*globals)
       original_global_strainer = Liquid::Strainer.class_variable_get(:@@global_strainer)
       Liquid::Strainer.class_variable_set(:@@global_strainer, Class.new(Liquid::Strainer) do

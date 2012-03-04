@@ -106,6 +106,11 @@ class ContextUnitTest < Minitest::Test
     assert_equal nil, @context['does_not_exist']
   end
 
+  def test_strict_variables_not_existing
+    @context.strict!
+    assert_raises(Liquid::UndefinedVariable) { @context['does_not_exist'] }
+  end
+
   def test_scoping
     @context.push
     @context.pop
@@ -304,8 +309,23 @@ class ContextUnitTest < Minitest::Test
     assert_equal 'Hello', @context['hash["first"]']
   end
 
+  def test_hash_key_which_does_not_exist
+    @context['hash'] = {'first' => 'Hello'}
+
+    assert_equal nil, @context['hash["second"]']
+    assert_equal nil, @context['hash.second']
+  end
+
+  def test_hash_key_which_does_not_exist_with_strict_variables
+    @context.strict!
+    @context['hash'] = {'first' => 'Hello'}
+
+    assert_raises(Liquid::UndefinedVariable) { @context['hash["second"]'] }
+    assert_raises(Liquid::UndefinedVariable) { @context['hash.second'] }
+  end
+
   def test_first_can_appear_in_middle_of_callchain
-    @context['product'] = { 'variants' => [ { 'title' => 'draft151cm' }, { 'title' => 'element151cm' } ] }
+    @context['product'] = {'variants' => [ {'title' => 'draft151cm'}, {'title' => 'element151cm'}  ]}
 
     assert_equal 'draft151cm', @context['product.variants[0].title']
     assert_equal 'element151cm', @context['product.variants[1].title']
