@@ -140,7 +140,7 @@ class ConditionUnitTest < Minitest::Test
 
   def test_contains_raises_error_for_nil_operands_if_strict
     @context = Liquid::Context.new
-    @context.strict!
+    @context.strict_variables = true
     assert_raises(UndefinedVariable) do
       assert_evaluates_false "not_assigned", 'contains', '0'
     end

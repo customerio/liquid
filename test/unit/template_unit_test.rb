@@ -70,7 +70,7 @@ class TemplateUnitTest < Minitest::Test
 
   def test_raises_exception_when_unknown_if_strict
     template = Template.parse(%|{{ test }}|)
-    assert_raises(UndefinedVariable) { template.render({}, :strict => true) }
+    assert_raises(UndefinedVariable) { template.render! }
   end
 
   def test_tags_can_be_looped_over

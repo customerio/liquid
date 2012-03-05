@@ -42,12 +42,6 @@ module Liquid
       @warnings ||= []
     end
 
-    def strict!
-      @strict_variables = true
-      @strict_filters = true
-      @rethrow_errors = true
-    end
-
     def strainer
       @strainer ||= Strainer.create(self, @filters)
     end

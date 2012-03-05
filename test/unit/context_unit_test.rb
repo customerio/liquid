@@ -107,7 +107,7 @@ class ContextUnitTest < Minitest::Test
   end
 
   def test_strict_variables_not_existing
-    @context.strict!
+    @context.strict_variables = true
     assert_raises(Liquid::UndefinedVariable) { @context['does_not_exist'] }
   end
 
@@ -317,7 +317,7 @@ class ContextUnitTest < Minitest::Test
   end
 
   def test_hash_key_which_does_not_exist_with_strict_variables
-    @context.strict!
+    @context.strict_variables = true
     @context['hash'] = {'first' => 'Hello'}
 
     assert_raises(Liquid::UndefinedVariable) { @context['hash["second"]'] }
