@@ -106,7 +106,15 @@ module Liquid
       left = context.evaluate(left)
       right = context.evaluate(right)
 
-      operation = self.class.operators[op] || raise(Liquid::ArgumentError.new("Unknown operator #{op}"))
+      if integers?(left, right)
+        left  = left.to_i
+        right = right.to_i
+      elsif booleans?(left, right) || strings?(left, right)
+        left  = left.to_s
+        right = right.to_s
+      end
+
+      operation = self.class.operators[op] || raise(ArgumentError.new("Unknown operator #{op}"))
 
       if operation.respond_to?(:call)
         operation.call(self, left, right)
@@ -117,6 +125,19 @@ module Liquid
           raise Liquid::ArgumentError.new(e.message)
         end
       end
+    end
+
+    def integers?(a, b)
+      a.respond_to?(:to_i) && b.respond_to?(:to_i) && a.to_i.to_s == a.to_s && b.to_i.to_s == b.to_s
+    end
+
+    def booleans?(a, b)
+      values = [true, false, "true", "false"]
+      values.include?(a) && values.include?(b)
+    end
+
+    def strings?(a, b)
+      a.to_s.to_s == a && b.to_s == b
     end
   end
 
