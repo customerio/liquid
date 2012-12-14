@@ -103,8 +103,7 @@ module Liquid
       # return this as the result.
       return context.evaluate(left) if op.nil?
 
-      left = context.evaluate(left)
-      right = context.evaluate(right)
+      left, right = context.evaluate(left), context.evaluate(right)
 
       if integers?(left, right)
         left  = left.to_i
@@ -138,6 +137,14 @@ module Liquid
 
     def strings?(a, b)
       a.to_s.to_s == a && b.to_s == b
+    end
+
+    def safe_variable_lookup(context, name)
+      begin
+        context[name]
+      rescue Liquid::UndefinedVariable => e
+        nil
+      end
     end
   end
 

@@ -77,7 +77,7 @@ class IncludeTagTest < Test::Unit::TestCase
   end
 
   def test_include_tag_and_missing_variables_with_strict_variables
-    assert_raise(VariableNotFound) do
+    assert_raise(UndefinedVariable) do
       Template.parse("{% include 'locale_variables' %}").render!
     end
   end
