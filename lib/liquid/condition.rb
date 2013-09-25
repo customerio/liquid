@@ -8,13 +8,13 @@ module Liquid
   #
   class Condition #:nodoc:
     @@operators = {
-      '=='.freeze => ->(cond, left, right) {  cond.send(:equal_variables, left, right) },
-      '!='.freeze => ->(cond, left, right) { !cond.send(:equal_variables, left, right) },
-      '<>'.freeze => ->(cond, left, right) { !cond.send(:equal_variables, left, right) },
-      '<'.freeze  => :<,
-      '>'.freeze  => :>,
-      '>='.freeze => :>=,
-      '<='.freeze => :<=,
+      '==' => lambda { |cond, left, right|  cond.send(:equal_variables, left, right) },
+      '!=' => lambda { |cond, left, right| !cond.send(:equal_variables, left, right) },
+      '<>' => lambda { |cond, left, right| !cond.send(:equal_variables, left, right) },
+      '<'  => :<,
+      '>'  => :>,
+      '>=' => :>=,
+      '<=' => :<=,
       'contains'.freeze => lambda do |cond, left, right|
         if left && right && left.respond_to?(:include?)
           right = right.to_s if left.is_a?(String)
