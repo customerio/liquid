@@ -273,7 +273,7 @@ module Liquid
     #
     #   See also: http://www.ruby-doc.org/core/Time.html#method-i-strftime
     def date(input, format)
-      return input if format.to_s.empty?
+      return input.to_s if format.to_s.empty?
 
       return input unless date = Utils.to_date(input)
 
