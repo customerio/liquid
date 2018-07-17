@@ -73,7 +73,7 @@ module Liquid
       case obj
       when 'now', 'today'
         Time.now
-      when /\A\d+\z/, Integer
+      when /\A\d+\z/, Integer, Float
         Time.at(obj.to_i)
       when String
         Time.parse(obj)

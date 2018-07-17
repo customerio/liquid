@@ -75,6 +75,11 @@ class StandardTagTest < Minitest::Test
     end
   end
 
+  def test_capture_with_strict
+    assigns = {'var' => 'content' }
+    assert_strict_template_result('content foo content foo ', '{% capture var2 %}{{ var }} foo {% endcapture %}{{ var2 }}{{ var2 }}', assigns)
+  end
+
   def test_case
     assigns = { 'condition' => 2 }
     assert_template_result(' its 2 ',

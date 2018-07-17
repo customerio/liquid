@@ -43,6 +43,12 @@ class IfElseTagTest < Minitest::Test
     assert_template_result('', '{% if a == false or b == false %} YES {% endif %}', 'a' => true, 'b' => true)
   end
 
+  def test_if_or_with_strict_variables
+    assert_strict_template_result('',     '{% if a or b %} YES {% endif %}', 'a' => false, 'b' => false)
+    assert_strict_template_result(' YES ','{% if a or b or c %} YES {% endif %}', 'a' => false, 'b' => false, 'c' => true)
+    assert_strict_template_result('',     '{% if a or b or c %} YES {% endif %}', 'a' => false, 'b' => false, 'c' => false)
+  end
+
   def test_comparison_of_strings_containing_and_or_or
     awful_markup = "a == 'and' and b == 'or' and c == 'foo and bar' and d == 'bar or baz' and e == 'foo' and foo and bar"
     assigns      = { 'a' => 'and', 'b' => 'or', 'c' => 'foo and bar', 'd' => 'bar or baz', 'e' => 'foo', 'foo' => true, 'bar' => true }
@@ -67,6 +73,10 @@ class IfElseTagTest < Minitest::Test
 
   def test_hash_miss_generates_false
     assert_template_result('', '{% if foo.bar %} NO {% endif %}', 'foo' => {})
+  end
+
+  def test_hash_miss_doesnt_raise_error_if_strict
+    assert_strict_template_result('','{% if foo.bar %} NO {% endif %}', 'foo' => {})
   end
 
   def test_if_from_variable

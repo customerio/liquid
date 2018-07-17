@@ -104,6 +104,11 @@ class ContextUnitTest < Minitest::Test
     assert_nil(@context['does_not_exist'])
   end
 
+  def test_strict_variables_not_existing
+    @context.strict_variables = true
+    assert_raises(Liquid::UndefinedVariable) { @context['does_not_exist'] }
+  end
+
   def test_scoping
     @context.push
     @context.pop
@@ -309,6 +314,21 @@ class ContextUnitTest < Minitest::Test
     assert_equal('element151cm', @context['product.variants[1].title'])
     assert_equal('draft151cm', @context['product.variants.first.title'])
     assert_equal('element151cm', @context['product.variants.last.title'])
+  end
+
+  def test_hash_key_which_does_not_exist
+    @context['hash'] = {'first' => 'Hello'}
+  
+    assert_equal nil, @context['hash["second"]']
+    assert_equal nil, @context['hash.second']
+  end
+
+  def test_hash_key_which_does_not_exist_with_strict_variables
+    @context.strict_variables = true
+    @context['hash'] = {'first' => 'Hello'}
+    
+    assert_raises(Liquid::UndefinedVariable) { @context['hash["second"]'] }
+    assert_raises(Liquid::UndefinedVariable) { @context['hash.second'] }
   end
 
   def test_cents

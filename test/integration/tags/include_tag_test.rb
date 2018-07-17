@@ -129,6 +129,16 @@ class IncludeTagTest < Minitest::Test
       'echo1' => 'test123', 'more_echos' => { "echo2" => 'test321' })
   end
 
+  def test_include_tag_with_local_variables_and_strict_variables
+    assert_strict_template_result "Locale: test123 test321", "{% include 'locale_variables' echo1: 'test123', echo2: 'test321' %}"
+  end
+
+  def test_include_tag_and_missing_variables_with_strict_variables
+    assert_raises(UndefinedVariable) do
+      assert_strict_template_result "Locale: test123 test321", "{% include 'locale_variables' %}"
+    end
+  end
+
   def test_included_templates_assigns_variables
     assert_template_result("bar", "{% include 'assignments' %}{{ foo }}")
   end

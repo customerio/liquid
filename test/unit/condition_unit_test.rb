@@ -24,6 +24,28 @@ class ConditionUnitTest < Minitest::Test
     assert_evaluates_true(2, '>=', 1)
     assert_evaluates_true(1, '<=', 2)
     assert_evaluates_true(1, '<=', 1)
+
+    assert_evaluates_true("1", '==', 1)
+    assert_evaluates_true("'alpha'", '==', "'alpha'")
+    assert_evaluates_true("true", '==', true)
+    assert_evaluates_true("true", '==', "true")
+    assert_evaluates_true("'alpha'", '!=', "'beta'")
+    assert_evaluates_true("'false'", '!=', "true")
+    assert_evaluates_true("false", '!=', "true")
+    assert_evaluates_true("'alpha'", '<>', "'beta'")
+    assert_evaluates_true("'false'", '<>', "true")
+    assert_evaluates_true("false", '<>', "true")
+    assert_evaluates_true("'1'", '<', '2')
+    assert_evaluates_true("'alpha'", '<', "'beta'")
+    assert_evaluates_true("2", '>', 1)
+    assert_evaluates_true("3", '<', "10")
+    assert_evaluates_true("10", '>', "3")
+    assert_evaluates_true("'beta'", '>', "'alpha'")
+    assert_evaluates_true("1", '>=', 1)
+    assert_evaluates_true("2", '>=', 1)
+    assert_evaluates_true("'1'", '<=', '2')
+    assert_evaluates_true("'1'", '<=', '1')
+  
     # negative numbers
     assert_evaluates_true(1, '>', -1)
     assert_evaluates_true(-1, '<', 1)
@@ -41,6 +63,25 @@ class ConditionUnitTest < Minitest::Test
     assert_evaluates_false(2, '>=', 4)
     assert_evaluates_false(1, '<=', 0)
     assert_evaluates_false(1, '<=', 0)
+
+    assert_evaluates_false("'alpha'", '==', "'beta'")
+    assert_evaluates_false("'false'", '==', "true")
+    assert_evaluates_false("'alpha'", '!=', "'alpha'")
+    assert_evaluates_false("true", '!=', true)
+    assert_evaluates_false("1", '!=', 1)
+    assert_evaluates_false("'alpha'", '<>', "'alpha'")
+    assert_evaluates_false("true", '<>', true)
+    assert_evaluates_false("1", '<>', 1)
+    assert_evaluates_false("1", '<', 0)
+    assert_evaluates_false("'2'", '>', '4')
+    assert_evaluates_false("10", '<', "3")
+    assert_evaluates_false("3", '>', "10")
+    assert_evaluates_false("'alpha'", '>', "'beta'")
+    assert_evaluates_false("'beta'", '<', "'alpha'")
+    assert_evaluates_false("'1'", '>=', '3')
+    assert_evaluates_false(2, '>=', "4")
+    assert_evaluates_false("1", '<=', 0)
+    assert_evaluates_false(1, '<=', "0")
   end
 
   def test_contains_works_on_strings
@@ -89,10 +130,22 @@ class ConditionUnitTest < Minitest::Test
     assert_evaluates_false(array_expr, 'contains', "1")
   end
 
+  def test_contains_does_not_raise_error_for_nil_operands_if_strict
+    @context = Liquid::Context.new
+    @context.strict_variables = true
+    assert_evaluates_false(VariableLookup.new("not_assigned"), 'contains', '0')
+  end
+
   def test_contains_returns_false_for_nil_operands
     @context = Liquid::Context.new
     assert_evaluates_false(VariableLookup.new('not_assigned'), 'contains', '0')
     assert_evaluates_false(0, 'contains', VariableLookup.new('not_assigned'))
+  end
+
+  def test_contains_returns_false_for_integer_operands
+    @context = Liquid::Context.new
+    @context['myVar'] = 1
+    assert_evaluates_false("myVar", 'contains', '0')
   end
 
   def test_contains_return_false_on_wrong_data_type

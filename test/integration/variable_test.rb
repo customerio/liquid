@@ -26,6 +26,11 @@ class VariableTest < Minitest::Test
     assert_equal('', template.render!)
   end
 
+  def test_capture_with_strict
+    assigns = {'var' => 'content' }
+    assert_strict_template_result('content foo content foo ', '{% capture var2 %}{{ var }} foo {% endcapture %}{{ var2 }}{{ var2 }}', assigns)
+  end
+
   def test_using_blank_as_variable_name
     template = Template.parse("{% assign foo = blank %}{{ foo }}")
     assert_equal('', template.render!)

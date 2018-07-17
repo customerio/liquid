@@ -45,6 +45,10 @@ module Minitest
       assert_equal(expected, Template.parse(template, line_numbers: true).render!(assigns), message)
     end
 
+    def assert_strict_template_result(expected, template, assigns = {}, message = nil)
+      assert_equal expected, Template.parse(template).render!(assigns, :strict_variables=>true), message
+    end
+
     def assert_template_result_matches(expected, template, assigns = {}, message = nil)
       return assert_template_result(expected, template, assigns, message) unless expected.is_a?(Regexp)
 

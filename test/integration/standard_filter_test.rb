@@ -486,6 +486,7 @@ class StandardFiltersTest < Minitest::Test
 
     with_timezone("UTC") do
       assert_equal "07/05/2006", @filters.date(1152098955, "%m/%d/%Y")
+      assert_equal "07/05/2006", @filters.date(1152098955.0, "%m/%d/%Y")
       assert_equal "07/05/2006", @filters.date("1152098955", "%m/%d/%Y")
     end
   end

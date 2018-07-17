@@ -111,13 +111,34 @@ module Liquid
     end
 
     def interpret_condition(left, right, op, context)
+
+      begin
+        left = context.evaluate(left)
+      rescue Liquid::UndefinedVariable
+        left = nil
+      end
+
       # If the operator is empty this means that the decision statement is just
       # a single variable. We can just poll this variable from the context and
       # return this as the result.
-      return context.evaluate(left) if op.nil?
+      return left if op.nil?
 
       left  = context.evaluate(left)
       right = context.evaluate(right)
+
+      begin
+        right = context.evaluate(right)
+      rescue Liquid::UndefinedVariable
+        right = nil
+      end
+
+      if integers?(left, right)
+        left  = left.to_i
+        right = right.to_i
+      elsif booleans?(left, right) || strings?(left, right)
+        left  = left.to_s
+        right = right.to_s
+      end
 
       operation = self.class.operators[op] || raise(Liquid::ArgumentError, "Unknown operator #{op}")
 
@@ -132,13 +153,28 @@ module Liquid
       end
     end
 
+
+    def integers?(a, b)
+      # puts "a: #{a.respond_to?(:to_i)} #{a.to_i} #{a.class} b: #{b.respond_to?(:to_i)} #{b.to_i} #{b.class}"
+      a.respond_to?(:to_i) && b.respond_to?(:to_i) && a.to_i.to_s == a.to_s && b.to_i.to_s == b.to_s
+    end
+
+    def booleans?(a, b)
+      values = [true, false, "true", "false"]
+      values.include?(a) && values.include?(b)
+    end
+
+    def strings?(a, b)
+      a.to_s.to_s == a && b.to_s == b
+    end
+  
     class ParseTreeVisitor < Liquid::ParseTreeVisitor
       def children
         [
           @node.left, @node.right,
           @node.child_condition, @node.attachment
         ].compact
-      end
+      endjust tests
     end
   end
 

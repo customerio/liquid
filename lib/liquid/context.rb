@@ -18,11 +18,11 @@ module Liquid
     attr_accessor :exception_renderer, :template_name, :partial, :global_filter, :strict_variables, :strict_filters
 
     # rubocop:disable Metrics/ParameterLists
-    def self.build(environments: {}, outer_scope: {}, registers: {}, rethrow_errors: false, resource_limits: nil, static_environments: {})
-      new(environments, outer_scope, registers, rethrow_errors, resource_limits, static_environments)
+    def self.build(environments: {}, outer_scope: {}, registers: {}, rethrow_errors: false, resource_limits: nil, static_environments: {}, strict: false)
+      new(environments, outer_scope, registers, rethrow_errors, resource_limits, static_environments, strict)
     end
 
-    def initialize(environments = {}, outer_scope = {}, registers = {}, rethrow_errors = false, resource_limits = nil, static_environments = {})
+    def initialize(environments = {}, outer_scope = {}, registers = {}, rethrow_errors = false, resource_limits = nil, static_environments = {}, strict = false)
       @environments = [environments]
       @environments.flatten!
 
@@ -31,7 +31,7 @@ module Liquid
       @registers           = registers
       @errors              = []
       @partial             = false
-      @strict_variables    = false
+      @strict_variables    = strict
       @resource_limits     = resource_limits || ResourceLimits.new(Template.default_resource_limits)
       @base_scope_depth    = 0
       squash_instance_assigns_with_environments
