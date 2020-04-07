@@ -18,4 +18,8 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files  = ["History.md", "README.md"]
 
   s.require_path = "lib"
+
+  s.add_development_dependency('rake', '~> 11.3')
+  s.add_development_dependency('test-unit')
+  s.add_development_dependency('minitest')
 end
