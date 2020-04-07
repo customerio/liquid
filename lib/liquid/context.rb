@@ -1,4 +1,4 @@
-module Liquid
+module LegacyLiquid
 
   # Context keeps the variable stack and resolves variables, as well as keywords
   #
@@ -49,11 +49,11 @@ module Liquid
 
       case e
       when SyntaxError
-        "Liquid syntax error: #{e.message}"
+        "LegacyLiquid syntax error: #{e.message}"
       when VariableNotFound
         raise e
       else
-        "Liquid error: #{e.message}"
+        "LegacyLiquid error: #{e.message}"
       end
     end
 
@@ -101,7 +101,7 @@ module Liquid
       @scopes[0] = {}
     end
 
-    # Only allow String, Numeric, Hash, Array, Proc, Boolean or <tt>Liquid::Drop</tt>
+    # Only allow String, Numeric, Hash, Array, Proc, Boolean or <tt>LegacyLiquid::Drop</tt>
     def []=(key, value)
       @scopes[0][key] = value
     end
@@ -253,4 +253,4 @@ module Liquid
       end
   end # Context
 
-end # Liquid
+end # LegacyLiquid

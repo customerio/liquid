@@ -1,4 +1,4 @@
-module Liquid
+module LegacyLiquid
 
   class Block < Tag
     IsTag             = /^#{TagStart}/

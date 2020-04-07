@@ -1,11 +1,11 @@
 require 'test_helper'
 
 class StandardTagTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def test_tag
     tag = Tag.new('tag', [], [])
-    assert_equal 'liquid::tag', tag.name
+    assert_equal 'legacyliquid::tag', tag.name
     assert_equal '', tag.render(Context.new)
   end
 
@@ -186,7 +186,7 @@ class StandardTagTest < Test::Unit::TestCase
   def test_assign_from_case
     # Example from the shopify forums
     code = %q({% case collection.handle %}{% when 'menswear-jackets' %}{% assign ptitle = 'menswear' %}{% when 'menswear-t-shirts' %}{% assign ptitle = 'menswear' %}{% else %}{% assign ptitle = 'womenswear' %}{% endcase %}{{ ptitle }})
-    template = Liquid::Template.parse(code)
+    template = LegacyLiquid::Template.parse(code)
     assert_equal "menswear",   template.render("collection" => {'handle' => 'menswear-jackets'})
     assert_equal "menswear",   template.render("collection" => {'handle' => 'menswear-t-shirts'})
     assert_equal "womenswear", template.render("collection" => {'handle' => 'x'})
@@ -225,16 +225,16 @@ class StandardTagTest < Test::Unit::TestCase
   end
 
   def test_assign
-    assert_equal 'variable', Liquid::Template.parse( '{% assign a = "variable"%}{{a}}'  ).render
+    assert_equal 'variable', LegacyLiquid::Template.parse( '{% assign a = "variable"%}{{a}}'  ).render
   end
 
   def test_assign_an_empty_string
-    assert_equal '', Liquid::Template.parse( '{% assign a = ""%}{{a}}'  ).render
+    assert_equal '', LegacyLiquid::Template.parse( '{% assign a = ""%}{{a}}'  ).render
   end
 
   def test_assign_is_global
     assert_equal 'variable',
-                 Liquid::Template.parse( '{%for i in (1..2) %}{% assign a = "variable"%}{% endfor %}{{a}}'  ).render
+                 LegacyLiquid::Template.parse( '{%for i in (1..2) %}{% assign a = "variable"%}{% endfor %}{{a}}'  ).render
   end
 
   def test_case_detects_bad_syntax

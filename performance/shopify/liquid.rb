@@ -9,11 +9,11 @@ require File.dirname(__FILE__) + '/shop_filter'
 require File.dirname(__FILE__) + '/tag_filter'
 require File.dirname(__FILE__) + '/weight_filter'
 
-Liquid::Template.register_tag 'paginate', Paginate
-Liquid::Template.register_tag 'form', CommentForm
+LegacyLiquid::Template.register_tag 'paginate', Paginate
+LegacyLiquid::Template.register_tag 'form', CommentForm
 
-Liquid::Template.register_filter JsonFilter
-Liquid::Template.register_filter MoneyFilter
-Liquid::Template.register_filter WeightFilter
-Liquid::Template.register_filter ShopFilter
-Liquid::Template.register_filter TagFilter
+LegacyLiquid::Template.register_filter JsonFilter
+LegacyLiquid::Template.register_filter MoneyFilter
+LegacyLiquid::Template.register_filter WeightFilter
+LegacyLiquid::Template.register_filter ShopFilter
+LegacyLiquid::Template.register_filter TagFilter

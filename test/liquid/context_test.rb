@@ -6,7 +6,7 @@ class HundredCentes
   end
 end
 
-class CentsDrop < Liquid::Drop
+class CentsDrop < LegacyLiquid::Drop
   def amount
     HundredCentes.new
   end
@@ -16,13 +16,13 @@ class CentsDrop < Liquid::Drop
   end
 end
 
-class ContextSensitiveDrop < Liquid::Drop
+class ContextSensitiveDrop < LegacyLiquid::Drop
   def test
     @context['test']
   end
 end
 
-class Category < Liquid::Drop
+class Category < LegacyLiquid::Drop
   attr_accessor :name
 
   def initialize(name)
@@ -41,7 +41,7 @@ class CategoryDrop
   end
 end
 
-class CounterDrop < Liquid::Drop
+class CounterDrop < LegacyLiquid::Drop
   def count
     @count ||= 0
     @count += 1
@@ -64,10 +64,10 @@ class ArrayLike
 end
 
 class ContextTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def setup
-    @context = Liquid::Context.new
+    @context = LegacyLiquid::Context.new
   end
 
   def test_variables
@@ -104,7 +104,7 @@ class ContextTest < Test::Unit::TestCase
 
   def test_strict_variables_not_existing
     @context.strict = true
-    assert_raise(Liquid::VariableNotFound) { @context['does_not_exist'] }
+    assert_raise(LegacyLiquid::VariableNotFound) { @context['does_not_exist'] }
   end
 
   def test_scoping
@@ -113,11 +113,11 @@ class ContextTest < Test::Unit::TestCase
       @context.pop
     end
 
-    assert_raise(Liquid::ContextError) do
+    assert_raise(LegacyLiquid::ContextError) do
       @context.pop
     end
 
-    assert_raise(Liquid::ContextError) do
+    assert_raise(LegacyLiquid::ContextError) do
       @context.push
       @context.pop
       @context.pop
@@ -344,8 +344,8 @@ class ContextTest < Test::Unit::TestCase
     @context.strict = true
     @context['hash'] = {'first' => 'Hello'}
 
-    assert_raise(Liquid::VariableNotFound) { @context['hash["second"]'] }
-    assert_raise(Liquid::VariableNotFound) { @context['hash.second'] }
+    assert_raise(LegacyLiquid::VariableNotFound) { @context['hash["second"]'] }
+    assert_raise(LegacyLiquid::VariableNotFound) { @context['hash.second'] }
   end
 
   def test_first_can_appear_in_middle_of_callchain

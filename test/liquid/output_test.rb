@@ -28,7 +28,7 @@ module FunnyFilter
 end
 
 class OutputTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def setup
     @assigns = {

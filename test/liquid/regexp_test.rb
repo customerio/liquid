@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RegexpTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def test_empty
     assert_equal [], ''.scan(QuotedFragment)

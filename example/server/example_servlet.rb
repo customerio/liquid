@@ -16,7 +16,7 @@ module ProductsFilter
   end
 end
 
-class Servlet < LiquidServlet
+class Servlet < LegacyLiquidServlet
   
   def index
     { 'date' => Time.now }

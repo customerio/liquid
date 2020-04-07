@@ -1,4 +1,4 @@
-class LiquidServlet < WEBrick::HTTPServlet::AbstractServlet
+class LegacyLiquidServlet < WEBrick::HTTPServlet::AbstractServlet
 
   def do_GET(req, res)
     handle(:get, req, res)
@@ -19,7 +19,7 @@ class LiquidServlet < WEBrick::HTTPServlet::AbstractServlet
 
     @response['Content-Type'] = "text/html"
     @response.status = 200
-    @response.body = Liquid::Template.parse(read_template).render(@assigns, :filters => [ProductsFilter])      
+    @response.body = LegacyLiquid::Template.parse(read_template).render(@assigns, :filters => [ProductsFilter])      
   end
   
   def read_template(filename = @action)

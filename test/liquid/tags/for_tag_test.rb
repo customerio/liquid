@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ForTagTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def test_for
     assert_template_result(' yo  yo  yo  yo ','{%for item in array%} yo {%endfor%}','array' => [1,2,3,4])

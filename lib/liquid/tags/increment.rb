@@ -1,4 +1,4 @@
-module Liquid
+module LegacyLiquid
   
   # increment is used in a place where one needs to insert a counter
   #     into a template, and needs the counter to survive across

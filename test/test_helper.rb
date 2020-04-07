@@ -13,7 +13,7 @@ require File.join(File.dirname(__FILE__), '..', 'lib', 'liquid')
 module Test
   module Unit
     module Assertions
-      include Liquid
+      include LegacyLiquid
 
       def assert_template_result(expected, template, assigns = {}, message = nil)
         assert_equal expected, Template.parse(template).render(assigns)

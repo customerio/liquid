@@ -1,4 +1,4 @@
-module Liquid
+module LegacyLiquid
   class Include < Tag
     Syntax = /(#{QuotedFragment}+)(\s+(?:with|for)\s+(#{QuotedFragment}+))?/
   
@@ -25,7 +25,7 @@ module Liquid
     
     def render(context)
       source = _read_template_from_file_system(context)
-      partial = Liquid::Template.parse(source)
+      partial = LegacyLiquid::Template.parse(source)
 
       begin
         variable = context[@variable_name || @template_name[1..-2]]
@@ -52,7 +52,7 @@ module Liquid
    
     private
       def _read_template_from_file_system(context)
-        file_system = context.registers[:file_system] || Liquid::Template.file_system
+        file_system = context.registers[:file_system] || LegacyLiquid::Template.file_system
       
         # make read_template_file call backwards-compatible.
         case file_system.method(:read_template_file).arity

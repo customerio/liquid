@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class IfElseTagTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def test_if
     assert_template_result('  ',' {% if false %} this text should not go into the output {% endif %} ')

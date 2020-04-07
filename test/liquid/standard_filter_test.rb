@@ -1,11 +1,11 @@
 require 'test_helper'
 
 class Filters
-  include Liquid::StandardFilters
+  include LegacyLiquid::StandardFilters
 end
 
 class StandardFiltersTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def setup
     @filters = Filters.new
@@ -43,7 +43,7 @@ class StandardFiltersTest < Test::Unit::TestCase
     assert_equal ['12','34'], @filters.split('12~34', '~')
     assert_equal ['A? ',' ,Z'], @filters.split('A? ~ ~ ~ ,Z', '~ ~ ~')
     assert_equal ['A?Z'], @filters.split('A?Z', '~')
-    # Regexp works although Liquid does not support.
+    # Regexp works although LegacyLiquid does not support.
     assert_equal ['A','Z'], @filters.split('AxZ', /x/)
   end
 
@@ -173,7 +173,7 @@ class StandardFiltersTest < Test::Unit::TestCase
     assert_match(/4\.(6{13,14})7/, Template.parse("{{ 14 | divided_by:'3.0' }}").render)
 
     assert_template_result "5", "{{ 15 | divided_by:3 }}"
-    assert_template_result "Liquid error: divided by 0", "{{ 5 | divided_by:0 }}"
+    assert_template_result "LegacyLiquid error: divided by 0", "{{ 5 | divided_by:0 }}"
   end
 
   def test_modulo

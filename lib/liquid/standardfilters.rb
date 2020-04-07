@@ -1,6 +1,6 @@
 require 'cgi'
 
-module Liquid
+module LegacyLiquid
 
   module StandardFilters
 

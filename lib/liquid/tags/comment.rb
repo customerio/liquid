@@ -1,4 +1,4 @@
-module Liquid
+module LegacyLiquid
   class Comment < Block
     def render(context)
       ''

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class VariableTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def test_variable
     var = Variable.new('hello')
@@ -107,7 +107,7 @@ end
 
 
 class VariableResolutionTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def test_simple_variable
     template = Template.parse(%|{{test}}|)

@@ -1,4 +1,4 @@
-module Liquid
+module LegacyLiquid
 
   # Templates are central to liquid.
   # Interpretating templates is a two step process. First you compile the
@@ -10,7 +10,7 @@ module Liquid
   #
   # Example:
   #
-  #   template = Liquid::Template.parse(source)
+  #   template = LegacyLiquid::Template.parse(source)
   #   template.render('user_name' => 'bob')
   #
   class Template
@@ -90,14 +90,14 @@ module Liquid
       return '' if @root.nil?
       
       context = case args.first
-      when Liquid::Context
+      when LegacyLiquid::Context
         args.shift
       when Hash
         Context.new([args.shift, assigns], instance_assigns, registers, @rethrow_errors, @strict)
       when nil
         Context.new(assigns, instance_assigns, registers, @rethrow_errors, @strict)
       else
-        raise ArgumentError, "Expect Hash or Liquid::Context as parameter"
+        raise ArgumentError, "Expect Hash or LegacyLiquid::Context as parameter"
       end
 
       case args.last
@@ -134,7 +134,7 @@ module Liquid
 
     private
 
-    # Uses the <tt>Liquid::TemplateParser</tt> regexp to tokenize the passed source
+    # Uses the <tt>LegacyLiquid::TemplateParser</tt> regexp to tokenize the passed source
     def tokenize(source)
       source = source.source if source.respond_to?(:source)
       return [] if source.to_s.empty?

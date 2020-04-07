@@ -1,4 +1,4 @@
-module Liquid
+module LegacyLiquid
   class Case < Block
     Syntax     = /(#{QuotedFragment})/
     WhenSyntax = /(#{QuotedFragment})(?:(?:\s+or\s+|\s*\,\s*)(#{QuotedFragment}.*))?/

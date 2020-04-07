@@ -30,14 +30,14 @@ class TestClassC
   end
 end
 
-class TestClassC::LiquidDropClass
+class TestClassC::LegacyLiquidDropClass
   def another_allowedC
     'another_allowedC'
   end
 end
 
 class ModuleExTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def setup
     @a = TestClassA.new
@@ -45,10 +45,10 @@ class ModuleExTest < Test::Unit::TestCase
     @c = TestClassC.new
   end
 
-  def test_should_create_LiquidDropClass
-    assert TestClassA::LiquidDropClass
-    assert TestClassB::LiquidDropClass
-    assert TestClassC::LiquidDropClass
+  def test_should_create_LegacyLiquidDropClass
+    assert TestClassA::LegacyLiquidDropClass
+    assert TestClassB::LegacyLiquidDropClass
+    assert TestClassC::LegacyLiquidDropClass
   end
 
   def test_should_respond_to_liquid
@@ -57,10 +57,10 @@ class ModuleExTest < Test::Unit::TestCase
     assert @c.respond_to?(:to_liquid)
   end
 
-  def test_should_return_LiquidDropClass_object
-    assert @a.to_liquid.is_a?(TestClassA::LiquidDropClass)
-    assert @b.to_liquid.is_a?(TestClassB::LiquidDropClass)
-    assert @c.to_liquid.is_a?(TestClassC::LiquidDropClass)
+  def test_should_return_LegacyLiquidDropClass_object
+    assert @a.to_liquid.is_a?(TestClassA::LegacyLiquidDropClass)
+    assert @b.to_liquid.is_a?(TestClassB::LegacyLiquidDropClass)
+    assert @c.to_liquid.is_a?(TestClassC::LegacyLiquidDropClass)
   end
 
   def test_should_respond_to_liquid_methods
@@ -77,11 +77,11 @@ class ModuleExTest < Test::Unit::TestCase
   end
 
   def test_should_use_regular_objects_as_drops
-    assert_equal 'allowedA', Liquid::Template.parse("{{ a.allowedA }}").render('a'=>@a)
-    assert_equal 'allowedB', Liquid::Template.parse("{{ a.chainedB.allowedB }}").render('a'=>@a)
-    assert_equal 'allowedC', Liquid::Template.parse("{{ a.chainedB.chainedC.allowedC }}").render('a'=>@a)
-    assert_equal 'another_allowedC', Liquid::Template.parse("{{ a.chainedB.chainedC.another_allowedC }}").render('a'=>@a)
-    assert_equal '', Liquid::Template.parse("{{ a.restricted }}").render('a'=>@a)
-    assert_equal '', Liquid::Template.parse("{{ a.unknown }}").render('a'=>@a)
+    assert_equal 'allowedA', LegacyLiquid::Template.parse("{{ a.allowedA }}").render('a'=>@a)
+    assert_equal 'allowedB', LegacyLiquid::Template.parse("{{ a.chainedB.allowedB }}").render('a'=>@a)
+    assert_equal 'allowedC', LegacyLiquid::Template.parse("{{ a.chainedB.chainedC.allowedC }}").render('a'=>@a)
+    assert_equal 'another_allowedC', LegacyLiquid::Template.parse("{{ a.chainedB.chainedC.another_allowedC }}").render('a'=>@a)
+    assert_equal '', LegacyLiquid::Template.parse("{{ a.restricted }}").render('a'=>@a)
+    assert_equal '', LegacyLiquid::Template.parse("{{ a.unknown }}").render('a'=>@a)
   end
 end # ModuleExTest

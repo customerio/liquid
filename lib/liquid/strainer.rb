@@ -1,6 +1,6 @@
 require 'set'
 
-module Liquid
+module LegacyLiquid
 
   parent_object = if defined? BlankObject
     BlankObject

@@ -1,4 +1,4 @@
-module Liquid
+module LegacyLiquid
   class Error < ::StandardError; end
   
   class ArgumentError < Error; end

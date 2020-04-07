@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class StrainerTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def test_strainer
     strainer = Strainer.create(nil)

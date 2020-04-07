@@ -5,4 +5,4 @@ if defined? ActionView::Template and ActionView::Template.respond_to? :register_
   ActionView::Template
 else
   ActionView::Base
-end.register_template_handler(:liquid, LiquidView)
+end.register_template_handler(:liquid, LegacyLiquidView)

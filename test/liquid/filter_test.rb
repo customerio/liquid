@@ -17,7 +17,7 @@ module CanadianMoneyFilter
 end
 
 class FiltersTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def setup
     @context = Context.new
@@ -89,7 +89,7 @@ class FiltersTest < Test::Unit::TestCase
 end
 
 class FiltersInTemplate < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def test_local_global
     Template.register_filter(MoneyFilter)

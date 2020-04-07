@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class HtmlTagTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def test_html_table
 

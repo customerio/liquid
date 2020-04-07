@@ -19,9 +19,9 @@
 # end
 #
 # if you want to extend the drop to other methods you can defines more methods
-# in the class <YourClass>::LiquidDropClass
+# in the class <YourClass>::LegacyLiquidDropClass
 #
-#   class SomeClass::LiquidDropClass
+#   class SomeClass::LegacyLiquidDropClass
 #     def another_allowed_method
 #       'and this from another allowed method'
 #     end
@@ -43,7 +43,7 @@
 class Module
 
   def liquid_methods(*allowed_methods)
-    drop_class = eval "class #{self.to_s}::LiquidDropClass < Liquid::Drop; self; end"
+    drop_class = eval "class #{self.to_s}::LegacyLiquidDropClass < LegacyLiquid::Drop; self; end"
     define_method :to_liquid do
       drop_class.new(self)
     end

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ParsingQuirksTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def test_error_with_css
     text = %| div { font-weight: bold; } |

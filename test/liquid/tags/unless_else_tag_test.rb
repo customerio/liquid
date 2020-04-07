@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class UnlessElseTagTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def test_unless
     assert_template_result('  ',' {% unless true %} this text should not go into the output {% endunless %} ')

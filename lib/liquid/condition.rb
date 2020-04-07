@@ -1,4 +1,4 @@
-module Liquid
+module LegacyLiquid
   # Container for liquid nodes which conveniently wraps decision making logic
   #
   # Example:
@@ -129,7 +129,7 @@ module Liquid
     def safe_variable_lookup(context, name)
       begin
         context[name]
-      rescue Liquid::VariableNotFound => e
+      rescue LegacyLiquid::VariableNotFound => e
         nil
       end
     end

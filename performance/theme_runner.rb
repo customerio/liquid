@@ -63,7 +63,7 @@ class ThemeRunner
   end
 
   def compile_and_render(template, layout, assigns, page_template)    
-    tmpl = Liquid::Template.new
+    tmpl = LegacyLiquid::Template.new
     tmpl.assigns['page_title'] = 'Page title'
     tmpl.assigns['template'] = page_template
 

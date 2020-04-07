@@ -1,4 +1,4 @@
-module Liquid
+module LegacyLiquid
   class Raw < Block
     def parse(tokens)
       @nodelist ||= []

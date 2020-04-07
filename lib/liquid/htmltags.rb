@@ -1,4 +1,4 @@
-module Liquid
+module LegacyLiquid
   class TableRow < Block
     Syntax = /(\w+)\s+in\s+(#{QuotedFragment}+)/
 

@@ -1,10 +1,10 @@
-# LiquidView is a action view extension class. You can register it with rails
+# LegacyLiquidView is a action view extension class. You can register it with rails
 # and use liquid as an template system for .liquid files
 #
 # Example
 # 
-#   ActionView::Base::register_template_handler :liquid, LiquidView
-class LiquidView
+#   ActionView::Base::register_template_handler :liquid, LegacyLiquidView
+class LegacyLiquidView
   PROTECTED_ASSIGNS = %w( template_root response _session template_class action_name request_origin session template
                           _response url _request _cookies variables_added _flash params _headers request cookies
                           ignore_missing_templates flash _params logger before_filter_chain_aborted headers )
@@ -12,7 +12,7 @@ class LiquidView
                                      @helpers @assigns_added @template @_render_stack @template_format @assigns )
   
   def self.call(template)
-    "LiquidView.new(self).render(template, local_assigns)"
+    "LegacyLiquidView.new(self).render(template, local_assigns)"
   end
 
   def initialize(view)
@@ -40,7 +40,7 @@ class LiquidView
     end
     assigns.merge!(local_assigns.stringify_keys)
     
-    liquid = Liquid::Template.parse(source)
+    liquid = LegacyLiquid::Template.parse(source)
     liquid.render(assigns, :filters => [@view.controller.master_helper_module], :registers => {:action_view => @view, :controller => @view.controller})
   end
 

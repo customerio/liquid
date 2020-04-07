@@ -1,4 +1,4 @@
-module Liquid
+module LegacyLiquid
 
   # A drop in liquid is a class which allows you to export DOM like things to liquid.
   # Methods of drops are callable.
@@ -8,13 +8,13 @@ module Liquid
   #
   # Example:
   #
-  #   class ProductDrop < Liquid::Drop
+  #   class ProductDrop < LegacyLiquid::Drop
   #     def top_sales
   #       Shop.current.products.find(:all, :order => 'sales', :limit => 10 )
   #     end
   #   end
   #
-  #   tmpl = Liquid::Template.parse( ' {% for product in product.top_sales %} {{ product.name }} {%endfor%} '  )
+  #   tmpl = LegacyLiquid::Template.parse( ' {% for product in product.top_sales %} {{ product.name }} {%endfor%} '  )
   #   tmpl.render('product' => ProductDrop.new ) # will invoke top_sales query.
   #
   # Your drop can either implement the methods sans any parameters or implement the before_method(name) method which is a

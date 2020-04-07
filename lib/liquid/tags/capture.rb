@@ -1,4 +1,4 @@
-module Liquid
+module LegacyLiquid
 
   # Capture stores the result of a block into a variable without rendering it inplace.
   #

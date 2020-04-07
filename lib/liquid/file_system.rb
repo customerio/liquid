@@ -1,5 +1,5 @@
-module Liquid
-  # A Liquid file system is way to let your templates retrieve other templates for use with the include tag.
+module LegacyLiquid
+  # A LegacyLiquid file system is way to let your templates retrieve other templates for use with the include tag.
   #
   # You can implement subclasses that retrieve templates from the database, from the file system using a different 
   # path structure, you can provide them as hard-coded inline strings, or any manner that you see fit.
@@ -8,12 +8,12 @@ module Liquid
   #
   # Example:
   #
-  # Liquid::Template.file_system = Liquid::LocalFileSystem.new(template_path)
-  # liquid = Liquid::Template.parse(template)
+  # LegacyLiquid::Template.file_system = LegacyLiquid::LocalFileSystem.new(template_path)
+  # liquid = LegacyLiquid::Template.parse(template)
   #
   # This will parse the template with a LocalFileSystem implementation rooted at 'template_path'.
   class BlankFileSystem
-    # Called by Liquid to retrieve a template file
+    # Called by LegacyLiquid to retrieve a template file
     def read_template_file(template_path, context)
       raise FileSystemError, "This liquid context does not allow includes."
     end
@@ -26,7 +26,7 @@ module Liquid
   #
   # Example:
   #
-  # file_system = Liquid::LocalFileSystem.new("/some/path")
+  # file_system = LegacyLiquid::LocalFileSystem.new("/some/path")
   # 
   # file_system.full_path("mypartial")       # => "/some/path/_mypartial.liquid"
   # file_system.full_path("dir/mypartial")   # => "/some/path/dir/_mypartial.liquid"

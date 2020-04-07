@@ -1,5 +1,5 @@
-class Paginate < Liquid::Block
-  Syntax     = /(#{Liquid::QuotedFragment})\s*(by\s*(\d+))?/
+class Paginate < LegacyLiquid::Block
+  Syntax     = /(#{LegacyLiquid::QuotedFragment})\s*(by\s*(\d+))?/
 
   def initialize(tag_name, markup, tokens)
     @nodelist = []
@@ -13,7 +13,7 @@ class Paginate < Liquid::Block
       end
       
       @attributes = { 'window_size' => 3 }
-      markup.scan(Liquid::TagAttributes) do |key, value|
+      markup.scan(LegacyLiquid::TagAttributes) do |key, value|
         @attributes[key] = value
       end        
     else

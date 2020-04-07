@@ -1,4 +1,4 @@
-module Liquid
+module LegacyLiquid
   
   # Cycle is usually used within a loop to alternate between values, like colors or DOM classes.
   #

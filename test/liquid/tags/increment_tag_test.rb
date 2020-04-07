@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class IncrementTagTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def test_inc
     assert_template_result('0','{%increment port %}', {})

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class FileSystemTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def test_default
     assert_raise(FileSystemError) do
@@ -10,7 +10,7 @@ class FileSystemTest < Test::Unit::TestCase
   end
 
   def test_local
-    file_system = Liquid::LocalFileSystem.new("/some/path")
+    file_system = LegacyLiquid::LocalFileSystem.new("/some/path")
     assert_equal "/some/path/_mypartial.liquid"    , file_system.full_path("mypartial")
     assert_equal "/some/path/dir/_mypartial.liquid", file_system.full_path("dir/mypartial")
 

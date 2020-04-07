@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TemplateTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def test_tokenize_strings
     assert_equal [' '], Template.new.send(:tokenize, ' ')

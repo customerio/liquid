@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RawTagTest < Test::Unit::TestCase
-  include Liquid
+  include LegacyLiquid
 
   def test_tag_in_raw
     assert_template_result '{% comment %} test {% endcomment %}',

@@ -1,4 +1,4 @@
-module Liquid
+module LegacyLiquid
 
   # If is the conditional block
   #

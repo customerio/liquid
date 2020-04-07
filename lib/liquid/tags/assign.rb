@@ -1,4 +1,4 @@
-module Liquid
+module LegacyLiquid
 
   # Assign sets a variable in your template.
   #
