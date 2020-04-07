@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 Gem::Specification.new do |s|
-  s.name        = "legacy-liquid"
+  s.name        = "legacyliquid"
   s.version     = "2.5.3"
   s.platform    = Gem::Platform::RUBY
   s.summary     = "A legacy copy of the secure, non-evaling end user template engine with aesthetic markup."

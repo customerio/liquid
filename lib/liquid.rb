@@ -45,22 +45,22 @@ module LegacyLiquid
   VariableParser              = /\[[^\]]+\]|#{VariableSegment}+\??/
 end
 
-require 'legacy-liquid/drop'
-require 'legacy-liquid/extensions'
-require 'legacy-liquid/errors'
-require 'legacy-liquid/strainer'
-require 'legacy-liquid/context'
-require 'legacy-liquid/tag'
-require 'legacy-liquid/block'
-require 'legacy-liquid/document'
-require 'legacy-liquid/variable'
-require 'legacy-liquid/file_system'
-require 'legacy-liquid/template'
-require 'legacy-liquid/htmltags'
-require 'legacy-liquid/standardfilters'
-require 'legacy-liquid/condition'
-require 'legacy-liquid/module_ex'
+require 'legacyliquid/drop'
+require 'legacyliquid/extensions'
+require 'legacyliquid/errors'
+require 'legacyliquid/strainer'
+require 'legacyliquid/context'
+require 'legacyliquid/tag'
+require 'legacyliquid/block'
+require 'legacyliquid/document'
+require 'legacyliquid/variable'
+require 'legacyliquid/file_system'
+require 'legacyliquid/template'
+require 'legacyliquid/htmltags'
+require 'legacyliquid/standardfilters'
+require 'legacyliquid/condition'
+require 'legacyliquid/module_ex'
 
 # Load all the tags of the standard library
 #
-Dir[File.dirname(__FILE__) + '/legacy-liquid/tags/*.rb'].each { |f| require f }
+Dir[File.dirname(__FILE__) + '/legacyliquid/tags/*.rb'].each { |f| require f }

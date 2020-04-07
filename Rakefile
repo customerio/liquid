@@ -9,18 +9,18 @@ task :default => 'test'
 
 Rake::TestTask.new(:test) do |t|
   t.libs << '.' << 'lib' << 'test'
-  t.pattern = 'test/liquid/**/*_test.rb'
+  t.pattern = 'test/legacyliquid/**/*_test.rb'
   t.verbose = false
 end
 
-gemspec = eval(File.read('liquid.gemspec'))
+gemspec = eval(File.read('legacyliquid.gemspec'))
 Gem::PackageTask.new(gemspec) do |pkg|
   pkg.gem_spec = gemspec
 end
 
 desc "Build the gem and release it to rubygems.org"
 task :release => :gem do
-  sh "gem push pkg/liquid-#{gemspec.version}.gem"
+  sh "gem push pkg/legacyliquid-#{gemspec.version}.gem"
 end
 
 namespace :benchmark do
@@ -42,7 +42,7 @@ namespace :profile do
 
   desc "Run KCacheGrind"
   task :grind => :run  do
-    system "kcachegrind /tmp/liquid.rubyprof_calltreeprinter.txt"
+    system "kcachegrind /tmp/legacyliquid.rubyprof_calltreeprinter.txt"
   end
 
 end
