@@ -174,7 +174,7 @@ module Liquid
           @node.left, @node.right,
           @node.child_condition, @node.attachment
         ].compact
-      endjust tests
+      end
     end
   end
 
